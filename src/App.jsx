@@ -244,7 +244,7 @@ function genCode(name) {
 const SHEETS_URL = "https://script.google.com/macros/s/AKfycbzsV5ycH8oVuUJbsYBhVl8WeSHZMOC3ZDrOr0ragZsgqQjXlX9UseUaPRM1K9CYPacr/exec";
 
 function sendToSheets(data) {
-  if (SHEETS_URL === "https://script.google.com/macros/s/AKfycbzsV5ycH8oVuUJbsYBhVl8WeSHZMOC3ZDrOr0ragZsgqQjXlX9UseUaPRM1K9CYPacr/exec") return;
+  if (SHEETS_URL === "YOUR_GOOGLE_SHEETS_URL_HERE") return;
   try {
     fetch(SHEETS_URL, {
       method: "POST",
