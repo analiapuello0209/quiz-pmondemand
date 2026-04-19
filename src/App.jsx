@@ -241,10 +241,10 @@ function genCode(name) {
 }
 
 // ═══ GOOGLE SHEETS ═══
-const SHEETS_URL = "YOUR_GOOGLE_SHEETS_URL_HERE";
+const SHEETS_URL = "https://script.google.com/macros/s/AKfycbzsV5ycH8oVuUJbsYBhVl8WeSHZMOC3ZDrOr0ragZsgqQjXlX9UseUaPRM1K9CYPacr/exec";
 
 function sendToSheets(data) {
-  if (SHEETS_URL === "YOUR_GOOGLE_SHEETS_URL_HERE") return;
+  if (SHEETS_URL === "https://script.google.com/macros/s/AKfycbzsV5ycH8oVuUJbsYBhVl8WeSHZMOC3ZDrOr0ragZsgqQjXlX9UseUaPRM1K9CYPacr/exec") return;
   try {
     fetch(SHEETS_URL, {
       method: "POST",
