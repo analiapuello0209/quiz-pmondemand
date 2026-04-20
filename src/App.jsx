@@ -21,7 +21,7 @@ const B = {
 // ═══ PROFILES ═══
 const PROFILES = {
   fire: {
-    name: "El Apagafuegos", emoji: "🔥", color: "#E8734A",
+    name: "Apagafuegos", emoji: "🔥", color: "#E8734A",
     desc: "Vives respondiendo a lo urgente de otros. Tu día lo controlan las interrupciones, no tus decisiones.",
     pattern: "Confundes urgencia con importancia. Eisenhower demostró que lo urgente rara vez es importante — pero se siente importante porque grita más fuerte.",
     frog: "Tu tarea más importante no es lo urgente — es lo importante que llevas postergando porque siempre hay un fuego que apagar.",
@@ -32,7 +32,7 @@ const PROFILES = {
     ],
   },
   perfect: {
-    name: "El Perfeccionista", emoji: "✨", color: "#7B6BDB",
+    name: "Perfeccionista", emoji: "✨", color: "#7B6BDB",
     desc: "Dedicas 3 horas a algo que podría tomar 1. Todo tiene que quedar 'perfecto' antes de soltarlo.",
     pattern: "Confundes calidad con perfección. Pareto demostró que el 80% del resultado viene del 20% del esfuerzo. Ese último 20% de 'perfección' te cuesta el 80% del tiempo.",
     frog: "Probablemente es algo que has estado puliendo en vez de soltar. El coraje está en entregar, no en perfeccionar.",
@@ -43,7 +43,7 @@ const PROFILES = {
     ],
   },
   multi: {
-    name: "El Multitasker", emoji: "🔄", color: "#D4A843",
+    name: "Multitasker", emoji: "🔄", color: "#D4A843",
     desc: "15 pestañas abiertas, 3 proyectos a medias, y la sensación constante de que algo se te olvida.",
     pattern: "Microsoft Research demostró que cambiar de tarea cuesta 23 minutos de recuperación mental. Si cambias 10 veces al día, pierdes casi 4 horas solo en 'reconectar'.",
     frog: "Tu tarea más importante es elegir. La parálisis viene de tener demasiadas opciones abiertas. Cierra 4 para poder avanzar en 1.",
@@ -54,7 +54,7 @@ const PROFILES = {
     ],
   },
   todo: {
-    name: "El Todoterreno", emoji: "💪", color: "#3A9A6A",
+    name: "Todoterreno", emoji: "💪", color: "#3A9A6A",
     desc: "Dices que sí a todo porque 'es más fácil hacerlo yo' o porque no quieres quedar mal. Cargas con todo.",
     pattern: "Cada 'sí' que das a otro es un 'no' que te das a ti. Tu agenda la están llenando las prioridades de otros, no las tuyas.",
     frog: "Probablemente no es una tarea — es una conversación. Decirle a alguien 'no puedo con esto' o 'necesito que hagas tu parte.'",
@@ -65,7 +65,7 @@ const PROFILES = {
     ],
   },
   planner: {
-    name: "El Planificador Eterno", emoji: "📋", color: "#C4564B",
+    name: "Planificador Eterno", emoji: "📋", color: "#C4564B",
     desc: "Planificas el lunes, reorganizas el martes, cambias de sistema el miércoles. Pero ejecutar... eso queda para después.",
     pattern: "Masicampo & Baumeister demostraron que hacer un plan da alivio mental tan real que tu cerebro cree que ya hiciste la tarea. Planificar se siente productivo, pero es una ilusión.",
     frog: "Dejar de planificar y hacer. Abre el documento, escribe la primera línea, manda el primer mensaje. Empieza imperfecto.",
@@ -87,7 +87,7 @@ const QUESTIONS = [
       { id: "toomuch", em: "🤯", lb: "Tengo tantas cosas que no sé por dónde empezar", sc: { multi: 3, planner: 1 } },
       { id: "nofinish", em: "🔄", lb: "Empiezo muchas cosas pero no termino ninguna", sc: { multi: 2, perfect: 2 } },
       { id: "busy", em: "😰", lb: "Trabajo mucho pero siento que no avanzo", sc: { fire: 2, perfect: 2, todo: 2 } },
-      { id: "ok", em: "👍", lb: "En general manejo bien mi día, pero puedo mejorar", sc: {} },
+      { id: "ok", em: "👍🏽", lb: "En general manejo bien mi día, pero puedo mejorar", sc: {} },
     ],
   },
   {
@@ -97,7 +97,7 @@ const QUESTIONS = [
       { id: "overtime", em: "⏱️", lb: "La hago pero le dedico el triple de tiempo necesario", sc: { perfect: 3 } },
       { id: "interrupt", em: "📱", lb: "La empiezo pero me interrumpen y nunca la termino", sc: { multi: 2, fire: 1, todo: 1 } },
       { id: "plan", em: "📝", lb: "La planeo perfectamente pero no la ejecuto", sc: { planner: 3 } },
-      { id: "doit", em: "✅", lb: "La identifico y la hago primero", sc: {} },
+      { id: "doit", em: "🎯", lb: "La identifico y la hago primero", sc: {} },
     ],
   },
   {
@@ -113,8 +113,8 @@ const QUESTIONS = [
   {
     q: "Cuando alguien te pide algo, ¿qué haces normalmente?",
     opts: [
-      { id: "yesall", em: "✋", lb: "Digo que sí a casi todo", sc: { todo: 3 } },
-      { id: "absorb", em: "🏋️", lb: "Lo hago yo porque es más rápido que explicarle a otro", sc: { todo: 2, perfect: 1 } },
+      { id: "yesall", em: "✋🏼", lb: "Digo que sí a casi todo", sc: { todo: 3 } },
+      { id: "absorb", em: "🏋🏾", lb: "Lo hago yo porque es más rápido que explicarle a otro", sc: { todo: 2, perfect: 1 } },
       { id: "sometimes", em: "⚖️", lb: "A veces digo no, pero me cuesta", sc: { todo: 1 } },
       { id: "filter", em: "🛡️", lb: "Filtro bastante bien lo que acepto", sc: {} },
     ],
@@ -126,7 +126,7 @@ const QUESTIONS = [
       { id: "notes", em: "📝", lb: "Notas sueltas, listas, post-its", sc: { planner: 1, multi: 1 } },
       { id: "app", em: "📱", lb: "Una app, pero no la uso consistentemente", sc: { planner: 2 } },
       { id: "system", em: "⚙️", lb: "Tengo un sistema, pero no funciona bien", sc: { planner: 1, perfect: 1 } },
-      { id: "works", em: "✅", lb: "Tengo un sistema que funciona razonablemente", sc: {} },
+      { id: "works", em: "🎯", lb: "Tengo un sistema que funciona razonablemente", sc: {} },
     ],
   },
   // BLOQUE 2 — Costo
@@ -138,7 +138,7 @@ const QUESTIONS = [
       { id: "h1", em: "", lb: "1-2 horas", hrs: 1.5 },
       { id: "h3", em: "", lb: "3-4 horas", hrs: 3.5 },
       { id: "h5", em: "", lb: "5+ horas", hrs: 5.5 },
-      { id: "hdk", em: "🤷", lb: "No sé, pero muchas", hrs: 3 },
+      { id: "hdk", em: "🤷🏽", lb: "No sé, pero muchas", hrs: 3 },
     ],
   },
   {
@@ -153,7 +153,7 @@ const QUESTIONS = [
   },
   {
     q: "¿Cuánto vale aproximadamente tu hora de trabajo?",
-    note: "Esto es solo para calcular el impacto económico en tu productividad.",
+    note: "Esto es para calcular el impacto económico en tu productividad.",
     isCost: true,
     opts: [
       { id: "r5", em: "", lb: "$5-10 / hora", rate: 7.5 },
@@ -177,18 +177,18 @@ const QUESTIONS = [
     opts: [
       { id: "many", em: "📱", lb: "Sí, varios, ninguno me funcionó", sc: { planner: 2 } },
       { id: "one", em: "🔄", lb: "Sí, uno, pero lo abandoné", sc: { planner: 1 } },
-      { id: "no", em: "🤷", lb: "No realmente, no sé por dónde empezar", sc: { multi: 1 } },
-      { id: "some", em: "✅", lb: "Sí, tengo algo que más o menos funciona", sc: {} },
+      { id: "no", em: "🤷🏼", lb: "No realmente, no sé por dónde empezar", sc: { multi: 1 } },
+      { id: "some", em: "🎯", lb: "Sí, tengo algo que más o menos funciona", sc: {} },
     ],
   },
   {
     q: "¿Qué te haría sentir que esta semana fue un éxito?",
     isPersonal: true,
     opts: [
-      { id: "finish", em: "", lb: "Terminar lo que empecé" },
-      { id: "noguilt", em: "", lb: "No sentir culpa el viernes" },
-      { id: "time", em: "", lb: "Tener tiempo para lo que realmente importa" },
-      { id: "progress", em: "", lb: "Sentir que estoy avanzando hacia algo" },
+      { id: "finish", em: "🏁", lb: "Terminar lo que empecé" },
+      { id: "noguilt", em: "🕊️", lb: "No sentir culpa el viernes" },
+      { id: "time", em: "⏰", lb: "Tener tiempo para lo que realmente importa" },
+      { id: "progress", em: "🚀", lb: "Sentir que estoy avanzando hacia algo" },
     ],
   },
 ];
@@ -241,7 +241,7 @@ function genCode(name) {
 }
 
 // ═══ GOOGLE SHEETS ═══
-const SHEETS_URL = "https://script.google.com/macros/s/AKfycbzsV5ycH8oVuUJbsYBhVl8WeSHZMOC3ZDrOr0ragZsgqQjXlX9UseUaPRM1K9CYPacr/exec";
+const SHEETS_URL = "YOUR_GOOGLE_SHEETS_URL_HERE";
 
 function sendToSheets(data) {
   if (SHEETS_URL === "YOUR_GOOGLE_SHEETS_URL_HERE") return;
@@ -283,11 +283,12 @@ const S = {
     cursor: active ? "pointer" : "default", fontFamily: "'Rubik', sans-serif",
     transition: "all 0.3s",
   }),
-  input: { width: "100%", boxSizing: "border-box", padding: "14px 18px", background: "#fff", border: `2px solid ${B.purple}33`, borderRadius: 12, color: B.dark, fontSize: 16, fontWeight: 600, outline: "none", fontFamily: "'Jaro', sans-serif", marginBottom: 12 },
+  input: { width: "100%", boxSizing: "border-box", padding: "14px 18px", background: "#fff", border: `2px solid ${B.purple}33`, borderRadius: 12, color: B.dark, fontSize: 16, fontWeight: 600, outline: "none", fontFamily: "'Rubik', sans-serif", marginBottom: 12 },
   progress: { display: "flex", gap: 3, marginBottom: 16, paddingTop: 8 },
   progDot: (active) => ({ flex: 1, height: 4, borderRadius: 2, background: active ? B.purple : "#ffffff88", transition: "background 0.3s" }),
   note: { fontSize: 11, color: B.gray, fontStyle: "italic", marginBottom: 12, padding: "6px 10px", background: "#fff", borderRadius: 6, border: "1px solid #E8E2F0" },
   card: { padding: 20, background: "#fff", borderRadius: 18, border: `1px solid #E8E2F0`, marginBottom: 12, boxShadow: "0 2px 12px #815DFF08" },
+  backBtn: { background: "none", border: "none", color: B.purpleMid, fontSize: 13, cursor: "pointer", padding: "8px 0", display: "flex", alignItems: "center", gap: 4, fontFamily: "'Rubik', sans-serif", marginBottom: 4 },
 };
 
 // ═══ GREETINGS ═══
@@ -337,14 +338,45 @@ export default function LeadMagnetQuiz() {
   }, [step]);
 
   const answer = (id) => {
-    const newA = [...answers, id];
-    setAnswers(newA);
+    const qIdx = step - 3; // question index (0-10 for P1-P11)
+    if (qIdx >= 0 && qIdx <= 10) {
+      const newA = [...answers];
+      newA[qIdx] = id;
+      setAnswers(newA);
+    } else {
+      setAnswers([...answers, id]);
+    }
     if (step < 14) setStep(step + 1);
     else {
-      // Last tap question answered, show goal input
       setStep(15);
     }
   };
+
+  const goBack = () => {
+    if (step === 14 || step === 15) {
+      setStep(13);
+    } else if (step >= 4 && step <= 13) {
+      setStep(step - 1);
+    } else if (step === 3) {
+      setStep(2);
+    } else if (step === 2) {
+      setStep(1);
+    } else if (step === 1) {
+      setStep(0);
+    }
+  };
+
+  const goForward = () => {
+    if (step >= 3 && step <= 13) {
+      const qIdx = step - 3;
+      if (answers[qIdx] !== undefined) {
+        setStep(step + 1);
+      }
+    }
+  };
+
+  // Check if there's a saved answer ahead (for showing forward button)
+  const hasAnswerForCurrent = step >= 3 && step <= 13 && answers[step - 3] !== undefined;
 
   const submitGoal = () => {
     setStep(16); // loading
@@ -494,6 +526,7 @@ export default function LeadMagnetQuiz() {
         {/* ═══ NAME ═══ */}
         {step === 1 && (
           <div style={{ animation: "fadeUp 0.4s ease", paddingTop: 10 }}>
+            <button onClick={goBack} style={S.backBtn}>← Atrás</button>
             <div style={S.coach}>
               <span style={S.coachLabel}>PRODUCTIVIDAD INTENCIONAL</span>
               ¡Empecemos! ¿Cómo te llamas?
@@ -510,17 +543,25 @@ export default function LeadMagnetQuiz() {
         {/* ═══ ROLE ═══ */}
         {step === 2 && (
           <div style={{ animation: "fadeUp 0.4s ease", paddingTop: 10 }}>
+            <button onClick={goBack} style={S.backBtn}>← Atrás</button>
             <div style={S.coach}>
               <span style={S.coachLabel}>PRODUCTIVIDAD INTENCIONAL</span>
               {name.split(" ")[0]}, ¿a qué te dedicas?
             </div>
-            {roleOpts.map((o, i) => (
-              <button key={o.id} className="qopt" onClick={() => { setRole(o.id); setStep(3); }}
-                style={{ ...S.opt(false), animation: `slideIn 0.3s ${i * 0.06}s both` }}>
+            {roleOpts.map((o, i) => {
+              const isSelected = role === o.id;
+              return (
+              <button key={o.id} className={isSelected ? "" : "qopt"} onClick={() => { setRole(o.id); setStep(3); }}
+                style={{
+                  ...S.opt(isSelected),
+                  animation: `slideIn 0.3s ${i * 0.06}s both`,
+                  ...(isSelected ? { background: `${B.purple}18`, border: `2px solid ${B.purple}`, boxShadow: `0 0 0 2px ${B.purple}22` } : {})
+                }}>
                 <span style={S.optEm}>{o.em}</span>
-                <span style={S.optTx(false)}>{o.lb}</span>
+                <span style={{ ...S.optTx(isSelected), flex: 1 }}>{o.lb}</span>
               </button>
-            ))}
+              );
+            })}
           </div>
         )}
 
@@ -530,6 +571,10 @@ export default function LeadMagnetQuiz() {
           const q = QUESTIONS[qIdx];
           return (
             <div style={{ animation: "fadeUp 0.3s ease", paddingTop: 10 }} key={step}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <button onClick={goBack} style={S.backBtn}>← Atrás</button>
+                {hasAnswerForCurrent && <button onClick={goForward} style={{ ...S.backBtn, color: B.purple }}>Siguiente →</button>}
+              </div>
               <div style={S.coach}>
                 <span style={S.coachLabel}>PRODUCTIVIDAD INTENCIONAL</span>
                 <div style={{ fontSize: 13, color: B.gray, marginBottom: 4 }}>{getGreetings(name)[qIdx]}</div>
@@ -537,13 +582,21 @@ export default function LeadMagnetQuiz() {
                 {q.sub && <div style={{ fontSize: 12, color: B.purpleMid, marginTop: 4, fontStyle: "italic" }}>{q.sub}</div>}
               </div>
               {q.note && <div style={S.note}>ℹ️ {q.note}</div>}
-              {q.opts.map((o, i) => (
-                <button key={o.id} className="qopt" onClick={() => answer(o.id)}
-                  style={{ ...S.opt(false), animation: `slideIn 0.3s ${i * 0.06}s both` }}>
+              {q.opts.map((o, i) => {
+                const prevAnswer = answers[qIdx];
+                const isSelected = prevAnswer === o.id;
+                return (
+                <button key={o.id} className={isSelected ? "" : "qopt"} onClick={() => answer(o.id)}
+                  style={{
+                    ...S.opt(isSelected),
+                    animation: `slideIn 0.3s ${i * 0.06}s both`,
+                    ...(isSelected ? { background: `${B.purple}18`, border: `2px solid ${B.purple}`, boxShadow: `0 0 0 2px ${B.purple}22` } : {})
+                  }}>
                   {o.em ? <span style={S.optEm}>{o.em}</span> : <span style={{ width: 8, flexShrink: 0 }} />}
-                  <span style={S.optTx(false)}>{o.lb}</span>
+                  <span style={{ ...S.optTx(isSelected), flex: 1 }}>{o.lb}</span>
                 </button>
-              ))}
+                );
+              })}
             </div>
           );
         })()}
@@ -551,6 +604,7 @@ export default function LeadMagnetQuiz() {
         {/* ═══ QUESTION 12 - GOAL (step 14) ═══ */}
         {step === 14 && (
           <div style={{ animation: "fadeUp 0.3s ease", paddingTop: 10 }}>
+            <button onClick={goBack} style={S.backBtn}>← Atrás</button>
             <div style={S.coach}>
               <span style={S.coachLabel}>PRODUCTIVIDAD INTENCIONAL</span>
               <div style={{ fontSize: 13, color: B.gray, marginBottom: 4 }}>Última cosa, {name.split(" ")[0]}:</div>
@@ -608,7 +662,7 @@ export default function LeadMagnetQuiz() {
                 <div style={{ fontSize: 48, marginBottom: 8, animation: "pop 0.6s ease" }}>{isOptimizer ? "⭐" : p.emoji}</div>
                 <div style={{ fontSize: 10, color: B.purple, letterSpacing: 3, fontWeight: 700, marginBottom: 4 }}>TU PERFIL DE PRODUCTIVIDAD</div>
                 <h2 style={{ fontFamily: "'Jaro', sans-serif", fontSize: 26, color: B.dark, margin: "4px 0 6px" }}>
-                  {isOptimizer ? "El Optimizador" : p.name}
+                  {isOptimizer ? "Optimizador" : p.name}
                 </h2>
                 <p style={{ fontSize: 14, color: B.gray, margin: "0 auto", maxWidth: 380, lineHeight: 1.5 }}>
                   {isOptimizer ? "Tu productividad está por encima del promedio. Tu oportunidad no es organizarte mejor — es elevar tu juego al siguiente nivel." : p.desc}
@@ -695,7 +749,7 @@ export default function LeadMagnetQuiz() {
               {/* Success vision - highlighted */}
               {successOpt && SUCCESS_MSGS[successOpt] && (
                 <div style={{ padding: "16px 20px", borderRadius: 14, marginBottom: 8, textAlign: "center", background: `${B.purple}10`, border: `1px solid ${B.purple}22` }}>
-                  <p style={{ fontSize: 15, color: B.purple, fontWeight: 600, lineHeight: 1.5, margin: 0, fontFamily: "'DM Serif Text', serif", fontStyle: "italic" }}>
+                  <p style={{ fontSize: 16, color: B.purple, fontWeight: 400, lineHeight: 1.5, margin: 0, fontFamily: "'Jaro', sans-serif" }}>
                     {SUCCESS_MSGS[successOpt]}
                   </p>
                 </div>
@@ -734,7 +788,7 @@ export default function LeadMagnetQuiz() {
                     <span style={{ fontSize: 12, color: B.purpleDark, fontWeight: 500 }}>30 días</span>
                   </div>
                   <div style={{ fontSize: 12, color: B.gray, lineHeight: 2 }}>
-                    Incluye:<br/>
+                    <strong style={{ color: B.dark }}>Incluye:</strong><br/>
                     ✓ Sesión de diagnóstico<br/>
                     ✓ "Coach virtual" diario<br/>
                     ✓ Dashboard personalizado de Notion<br/>
