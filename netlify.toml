@@ -1,15 +1,13 @@
 [build]
-  command = "npm run build"
+  command = "npm run build && mv build/index.html build/quiz.html"
   publish = "build"
 
 [[redirects]]
   from = "/quiz"
-  to = "/index.html"
+  to = "/quiz.html"
   status = 200
-  force = true
 
 [[redirects]]
   from = "/*"
   to = "/landing.html"
   status = 200
-  force = true
