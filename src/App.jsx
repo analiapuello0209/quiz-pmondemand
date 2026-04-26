@@ -241,7 +241,7 @@ function genCode(name) {
 }
 
 // ═══ GOOGLE SHEETS ═══
-const SHEETS_URL = "const SHEETS_URL = "https://script.google.com/macros/s/AKfycbzsV5ycH8oVuUJbsYBhVl8WeSHZMOC3ZDrOr0ragZsgqQjXlX9UseUaPRM1K9CYPacr/exec";
+const SHEETS_URL = "const SHEETS_URL = "https://script.google.com/macros/s/AKfycbxwEM5yy6EGHCP0nul_UAM18f_Ohg9MDOvXckxwuUqsaxhHFIsudwzbqCVy1GtUeSfj/exec";
 
 function sendToSheets(data) {
   if (SHEETS_URL === "YOUR_GOOGLE_SHEETS_URL_HERE") return;
