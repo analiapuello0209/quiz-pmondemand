@@ -241,7 +241,7 @@ function genCode(name) {
 }
 
 // ═══ GOOGLE SHEETS ═══
-const SHEETS_URL = "const SHEETS_URL = "https://script.google.com/macros/s/AKfycbxwEM5yy6EGHCP0nul_UAM18f_Ohg9MDOvXckxwuUqsaxhHFIsudwzbqCVy1GtUeSfj/exec";
+const SHEETS_URL = "https://script.google.com/macros/s/AKfycbxwEM5yy6EGHCP0nul_UAM18f_Ohg9MDOvXckxwuUqsaxhHFIsudwzbqCVy1GtUeSfj/exec";
 
 function sendToSheets(data) {
   if (SHEETS_URL === "YOUR_GOOGLE_SHEETS_URL_HERE") return;
@@ -432,7 +432,7 @@ export default function LeadMagnetQuiz() {
       name,
       email,
       code,
-      code_expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+      code_expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
     });
     setStep(18);
   };
@@ -783,7 +783,6 @@ export default function LeadMagnetQuiz() {
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                     <div>
                       <span style={{ fontFamily: "'Jaro', sans-serif", fontSize: 24, color: B.purple }}>$450 <span style={{ fontSize: 12, fontFamily: "'Rubik', sans-serif", color: B.gray }}>USD</span></span>
-                      <div style={{ fontSize: 9, color: B.purpleMid }}>+ ITBMS</div>
                     </div>
                     <span style={{ fontSize: 12, color: B.purpleDark, fontWeight: 500 }}>30 días</span>
                   </div>
@@ -887,7 +886,6 @@ export default function LeadMagnetQuiz() {
                   <div style={{ textAlign: "right" }}>
                     <div style={{ fontSize: 10, color: B.lime, letterSpacing: 1 }}>TU PRECIO</div>
                     <div style={{ fontFamily: "'Jaro', sans-serif", fontSize: 28, color: B.lime }}>$405</div>
-                    <div style={{ fontSize: 9, color: B.purpleMid }}>+ ITBMS</div>
                   </div>
                 </div>
                 {/* Code */}
