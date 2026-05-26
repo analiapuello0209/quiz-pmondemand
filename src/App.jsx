@@ -509,7 +509,7 @@ export default function LeadMagnetQuiz() {
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, maxWidth: 400, margin: "0 auto 24px", textAlign: "left" }}>
               {[
-                { em: "🔍", t: "Tu patrón de productividad (5 perfiles posibles)" },
+                { em: "🔍", t: "Tu patrón de improductividad (6 perfiles posibles)" },
                 { em: "💸", t: "El precio invisible de vivir sin sistema" },
                 { em: "💡", t: "3 acciones concretas para esta semana" },
               ].map((t, i) => (
@@ -525,7 +525,7 @@ export default function LeadMagnetQuiz() {
             }}>
               Descubrir mi perfil — gratis ✦
             </button>
-            <p style={{ fontSize: 11, color: "#B8B0CC", marginTop: 14 }}>Solo 12 preguntas · 100% gratis · Sin registro</p>
+            <p style={{ fontSize: 11, color: "#B8B0CC", marginTop: 14 }}>Solo 12 preguntas · 100% gratis · 3 minutos</p>
           </div>
         )}
 
@@ -679,7 +679,7 @@ export default function LeadMagnetQuiz() {
           <div style={{ textAlign: "center", paddingTop: 100, animation: "fadeUp 0.4s ease" }}>
             <div style={{ width: 48, height: 48, border: `3px solid #E8E2F0`, borderTopColor: B.purple, borderRadius: "50%", margin: "0 auto 24px", animation: "spin 1s linear infinite" }} />
             <h2 style={{ fontFamily: "'Jaro', sans-serif", fontSize: 20, color: B.dark, margin: "0 0 8px" }}>Analizando tu perfil...</h2>
-            <p style={{ fontSize: 13, color: B.gray, animation: "pulse 1.5s infinite" }}>Cruzando tus respuestas con patrones de productividad</p>
+            <p style={{ fontSize: 13, color: B.gray, animation: "pulse 1.5s infinite" }}>Cruzando tus respuestas con patrones de improductividad</p>
           </div>
         )}
 
