@@ -318,6 +318,9 @@ const roleOpts = [
   { id: "other", em: "✦", lb: "Otro" },
 ];
 
+// ═══ AGE RANGES ═══
+const AGE_RANGES = ["18-24", "25-34", "35-44", "45-54", "55+"];
+
 
 export default function LeadMagnetQuiz() {
   const [step, setStep] = useState(0);
@@ -332,6 +335,7 @@ export default function LeadMagnetQuiz() {
   const [copied, setCopied] = useState(false);
   const [sheetsSent, setSheetsSent] = useState(false);
   const [sliderHrs, setSliderHrs] = useState(null);
+  const [ageRange, setAgeRange] = useState(null);
   
 
   useEffect(() => {
@@ -401,6 +405,8 @@ export default function LeadMagnetQuiz() {
         sendToSheets({
           timestamp: new Date().toISOString(),
           name,
+          email,
+          age_range: ageRange,
           role,
           answers: answers.join(","),
           goal,
@@ -529,12 +535,41 @@ export default function LeadMagnetQuiz() {
             <button onClick={goBack} style={S.backBtn}>← Atrás</button>
             <div style={S.coach}>
               <span style={S.coachLabel}>PRODUCTIVIDAD INTENCIONAL</span>
-              ¡Empecemos! ¿Cómo te llamas?
+              ¡Empecemos! Cuéntanos sobre ti.
             </div>
             <input value={name} onChange={e => setName(e.target.value)} placeholder="Tu nombre..."
-              onKeyDown={e => { if (e.key === "Enter" && name.trim()) setStep(2) }}
               style={S.input} autoFocus />
-            <button onClick={() => setStep(2)} disabled={!name.trim()} style={S.btn(name.trim())}>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="tu@email.com (opcional)"
+              style={S.input} />
+            <div style={{ fontSize: 12, color: B.gray, marginTop: -4, marginBottom: 14, fontStyle: "italic", lineHeight: 1.4 }}>
+              Si lo dejas aquí, te enviamos tu reporte extendido al terminar.
+            </div>
+            <div style={{ fontSize: 13, color: B.dark, fontWeight: 600, marginTop: 4, marginBottom: 10 }}>Tu edad</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 18 }}>
+              {AGE_RANGES.map(age => {
+                const isSelected = ageRange === age;
+                return (
+                  <button key={age} onClick={() => setAgeRange(age)}
+                    style={{
+                      flex: "1 1 80px",
+                      padding: "10px 14px",
+                      border: `2px solid ${isSelected ? B.purple : "#e8e2f0"}`,
+                      background: isSelected ? `${B.purple}18` : "#fff",
+                      color: isSelected ? B.purple : B.text,
+                      borderRadius: 999,
+                      fontFamily: "'Rubik', sans-serif",
+                      fontSize: 14,
+                      fontWeight: 500,
+                      cursor: "pointer",
+                      transition: "all 0.2s",
+                      ...(isSelected ? { boxShadow: `0 0 0 2px ${B.purple}22` } : {})
+                    }}>
+                    {age}
+                  </button>
+                );
+              })}
+            </div>
+            <button onClick={() => setStep(2)} disabled={!name.trim() || !ageRange} style={S.btn(name.trim() && ageRange)}>
               Siguiente →
             </button>
           </div>
@@ -828,7 +863,7 @@ export default function LeadMagnetQuiz() {
               </div>
 
               {/* Restart */}
-              <button onClick={() => { setStep(0); setName(""); setRole(null); setAnswers([]); setGoal(""); setProfile(null); setEmail(""); setSheetsSent(false); setSliderHrs(null); }}
+              <button onClick={() => { setStep(0); setName(""); setRole(null); setAnswers([]); setGoal(""); setProfile(null); setEmail(""); setSheetsSent(false); setSliderHrs(null); setAgeRange(null); }}
                 style={{ width: "100%", padding: "10px", background: "transparent", color: B.gray, border: `1px solid #E8E2F0`, borderRadius: 10, fontSize: 12, cursor: "pointer" }}>
                 Hacer el test de nuevo
               </button>
