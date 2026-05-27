@@ -841,7 +841,7 @@ export default function LeadMagnetQuiz() {
                 {/* Form (si no hay email) o Botón (si email ya está set desde step 1) */}
                 {isValidEmail(email) ? (
                   <button onClick={submitEmail} style={{ width: "100%", padding: "15px 22px", background: B.purple, color: "#fff", border: "none", borderRadius: 999, fontFamily: "'Rubik', sans-serif", fontSize: 14, fontWeight: 600, cursor: "pointer", boxShadow: `0 6px 20px ${B.purple}48` }}>
-                    Quiero mi reporte con 10% de descuento →
+                    Quiero mi reporte extendido →
                   </button>
                 ) : (
                   <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -849,7 +849,7 @@ export default function LeadMagnetQuiz() {
                       onKeyDown={e => { if (e.key === "Enter" && isValidEmail(email)) submitEmail() }}
                       style={{ width: "100%", padding: "14px 20px", border: `2px solid rgba(45, 41, 68, 0.1)`, borderRadius: 999, fontFamily: "'Rubik', sans-serif", fontSize: 15, color: B.text, background: "#fff", outline: "none", boxSizing: "border-box", textAlign: "center" }} />
                     <button onClick={submitEmail} disabled={!isValidEmail(email)} style={{ width: "100%", padding: "15px 22px", background: isValidEmail(email) ? B.purple : "#E8E2F0", color: isValidEmail(email) ? "#fff" : "#B8B0CC", border: "none", borderRadius: 999, fontFamily: "'Rubik', sans-serif", fontSize: 14, fontWeight: 600, cursor: isValidEmail(email) ? "pointer" : "default", boxShadow: isValidEmail(email) ? `0 6px 20px ${B.purple}48` : "none" }}>
-                      Quiero mi reporte con 10% de descuento →
+                      Quiero mi reporte extendido →
                     </button>
                   </div>
                 )}
