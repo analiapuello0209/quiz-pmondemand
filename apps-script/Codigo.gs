@@ -80,6 +80,8 @@ function doPost(e) {
 
   if (data.type === "email_capture") {
     handleEmailCapture(sheet, data);
+  } else if (data.type === "unsubscribe") {
+    handleUnsubscribe(sheet, data.token);
   } else {
     handleQuizResult(sheet, data);
   }
@@ -87,8 +89,24 @@ function doPost(e) {
   return ContentService.createTextOutput("ok");
 }
 
+// Marca unsubscribed_at en la fila cuyo unsubscribe_token coincide.
+// Llamado desde el JS embebido en public/pausar.html via POST no-cors.
+function handleUnsubscribe(sheet, token) {
+  if (!token) return;
+  var rows = sheet.getDataRange().getValues();
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i][15] === token) { // col 16 = unsubscribe_token
+      if (!rows[i][19]) { // col 20 = unsubscribed_at, no sobrescribir
+        sheet.getRange(i + 1, 20).setValue(new Date().toISOString());
+      }
+      break;
+    }
+  }
+}
+
 // ════════════════════════════════════════════════════════════════════════
-// doGet — GETs proxied desde Netlify: /pausar?token=XXX
+// doGet — GETs directos al Apps Script (legacy/diagnóstico, no usado en
+// el flow actual porque /pausar es ahora una página estática en Netlify)
 // ════════════════════════════════════════════════════════════════════════
 function doGet(e) {
   var action = e && e.parameter && e.parameter.action;
