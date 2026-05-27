@@ -87,6 +87,70 @@ function doPost(e) {
   return ContentService.createTextOutput("ok");
 }
 
+// ════════════════════════════════════════════════════════════════════════
+// doGet — GETs proxied desde Netlify: /pausar?token=XXX
+// ════════════════════════════════════════════════════════════════════════
+function doGet(e) {
+  var action = e && e.parameter && e.parameter.action;
+  if (action === "pausar") {
+    return handlePausar(e.parameter.token);
+  }
+  return HtmlService.createHtmlOutput("<h1>404</h1>")
+    .setTitle("Tomando el Control")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+// Marca unsubscribed_at en la fila cuyo unsubscribe_token coincide.
+// Siempre devuelve la misma página de confirmación (aunque el token no exista
+// o no coincida) — UX > paranoia.
+function handlePausar(token) {
+  if (token) {
+    try {
+      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+      var rows = sheet.getDataRange().getValues();
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i][15] === token) { // col 16 = unsubscribe_token
+          if (!rows[i][19]) { // col 20 = unsubscribed_at, no sobrescribir
+            sheet.getRange(i + 1, 20).setValue(new Date().toISOString());
+          }
+          break;
+        }
+      }
+    } catch (err) {
+      Logger.log("handlePausar error: " + err.message);
+      // No re-tirar: queremos devolver la página de confirmación igual
+    }
+  }
+  return HtmlService.createHtmlOutput(_pausarHtml())
+    .setTitle("Tomando el Control")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function _pausarHtml() {
+  return '<!DOCTYPE html>' +
+'<html lang="es"><head>' +
+'<meta charset="utf-8">' +
+'<meta name="viewport" content="width=device-width, initial-scale=1">' +
+'<title>Tomando el Control</title>' +
+'<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">' +
+'<style>' +
+'  *{box-sizing:border-box}' +
+'  body{font-family:"Rubik",sans-serif;background:#FAF7FD;color:#2D2944;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}' +
+'  .card{background:#fff;max-width:480px;width:100%;padding:48px 36px 36px;border-radius:18px;text-align:center;box-shadow:0 4px 24px rgba(28,24,53,0.06);border:1px solid #E8E2F0}' +
+'  h1{font-family:"DM Serif Text",serif;font-weight:400;font-size:28px;line-height:1.3;color:#2D2944;margin:0 0 8px}' +
+'  .accent{color:#815DFF;font-style:italic}' +
+'  p{font-size:15px;line-height:1.6;color:#686087;margin:16px 0 0}' +
+'  .signature{margin-top:30px;font-family:"DM Serif Text",serif;font-style:italic;color:#815DFF;font-size:18px}' +
+'  .footer{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9E73AB;margin-top:24px;padding-top:18px;border-top:1px solid #EFE8F1}' +
+'</style></head><body>' +
+'<div class="card">' +
+'  <h1>Listo, no recibirás más correos<br><span class="accent">de esta secuencia</span>.</h1>' +
+'  <p>Un abrazo.</p>' +
+'  <div class="signature">Analía</div>' +
+'  <div class="footer">PM On Demand</div>' +
+'</div></body></html>';
+}
+
 // Inserta una fila nueva con el resultado del quiz
 function handleQuizResult(sheet, data) {
   sheet.appendRow([
@@ -283,6 +347,12 @@ function TEST()    { sendEmailE0(_testPayload()); Logger.log("Test E0 enviado");
 function TEST_E1() { sendEmailE1(_testPayload()); Logger.log("Test E1 enviado"); }
 function TEST_E2() { sendEmailE2(_testPayload()); Logger.log("Test E2 enviado"); }
 function TEST_DAILY() { dailyEmailJob(); }
+function TEST_PAUSAR() {
+  // Simula GET /pausar?token=<algún token existente del Sheet>
+  // Reemplaza con un token real para probar que marca unsubscribed_at
+  var output = doGet({ parameter: { action: "pausar", token: "test-token-12345" } });
+  Logger.log("Pausar HTML preview (primeros 300 chars): " + output.getContent().substring(0, 300));
+}
 
 function _testPayload() {
   return {

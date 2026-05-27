@@ -7,6 +7,15 @@
   to = "/quiz.html"
   status = 200
 
+# Proxy /pausar al Apps Script (action=pausar). El token viene como query param
+# y Netlify lo forwards al destino automáticamente. Status 200 = true proxy:
+# el URL en el browser queda como tupmondemand.com/pausar (sin escapar a Google).
+[[redirects]]
+  from = "/pausar"
+  to = "https://script.google.com/macros/s/AKfycbxwEM5yy6EGHCP0nul_UAM18f_Ohg9MDOvXckxwuUqsaxhHFIsudwzbqCVy1GtUeSfj/exec?action=pausar"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/landing.html"
