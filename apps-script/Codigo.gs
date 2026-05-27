@@ -82,11 +82,31 @@ function doPost(e) {
     handleEmailCapture(sheet, data);
   } else if (data.type === "unsubscribe") {
     handleUnsubscribe(sheet, data.token);
+  } else if (data.type === "wa_click") {
+    handleWhatsAppClick(sheet, data.code, data.from);
   } else {
     handleQuizResult(sheet, data);
   }
 
   return ContentService.createTextOutput("ok");
+}
+
+// Marca wa_clicked_at en la fila cuyo code coincide. Llamado desde el JS
+// embebido en public/wa.html cuando alguien clickea un link de WhatsApp desde
+// un email E0/E2. Una vez marcado, dailyEmailJob suprime los siguientes
+// envíos a esa persona (ya tuvo conversación abierta).
+function handleWhatsAppClick(sheet, code, from) {
+  if (!code) return;
+  var rows = sheet.getDataRange().getValues();
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i][12] === code) { // col 13 = code
+      if (!rows[i][20]) { // col 21 = wa_clicked_at, no sobrescribir
+        sheet.getRange(i + 1, 21).setValue(new Date().toISOString());
+      }
+      break;
+    }
+  }
+  Logger.log("WA click: code=" + code + " from=" + (from || "-"));
 }
 
 // Marca unsubscribed_at en la fila cuyo unsubscribe_token coincide.

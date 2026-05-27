@@ -15,6 +15,14 @@
   to = "/pausar.html"
   status = 200
 
+# /wa: registra el click + redirige a wa.me con mensaje pre-armado.
+# Lee code/profile/from de query params, hace POST al Apps Script con
+# {type:"wa_click", code, from}, después redirige a wa.me/50766741296.
+[[redirects]]
+  from = "/wa"
+  to = "/wa.html"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/landing.html"
