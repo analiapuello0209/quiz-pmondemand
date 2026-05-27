@@ -780,71 +780,6 @@ export default function LeadMagnetQuiz() {
                 </>
               )}
 
-              {/* ═══ BRIDGE + TOMANDO EL CONTROL ═══ */}
-              {/* Success vision - highlighted */}
-              {successOpt && SUCCESS_MSGS[successOpt] && (
-                <div style={{ padding: "16px 20px", borderRadius: 14, marginBottom: 8, textAlign: "center", background: `${B.purple}10`, border: `1px solid ${B.purple}22` }}>
-                  <p style={{ fontSize: 16, color: B.purple, fontWeight: 400, lineHeight: 1.5, margin: 0, fontFamily: "'Jaro', sans-serif" }}>
-                    {SUCCESS_MSGS[successOpt]}
-                  </p>
-                </div>
-              )}
-
-              {/* Emotional bridge */}
-              <div style={{ padding: "14px 4px", marginBottom: 4 }}>
-                <p style={{ fontSize: 14, color: B.text, lineHeight: 1.7, margin: "0 0 14px" }}>
-                  Es posible. Pero seamos honestos/as: las 3 acciones de arriba funcionan <em>si las haces</em>. Pero mantener un sistema nuevo solo/a, sin acompañamiento — ahí es donde la mayoría se queda a mitad de camino.
-                </p>
-                <p style={{ fontSize: 16, color: B.dark, fontWeight: 600, lineHeight: 1.5, margin: "0 0 14px", textAlign: "center" }}>
-                  ¿Y si no tuvieras que hacerlo solo/a?
-                </p>
-                <p style={{ fontSize: 14, color: B.text, lineHeight: 1.7, margin: 0, textAlign: "center" }}>
-                  Por eso creé <span style={{ fontFamily: "'Jaro', sans-serif", fontSize: 18, color: B.dark }}>Tomando el Control</span>.
-                </p>
-              </div>
-
-              {/* Program card */}
-              <div style={{ ...S.card, borderLeft: `3px solid ${B.purple}` }}>
-                <div style={{ fontFamily: "'Jaro', sans-serif", fontSize: 20, color: B.dark, marginBottom: 8 }}>
-                  Tomando el Control
-                </div>
-                <p style={{ fontSize: 13, color: B.text, lineHeight: 1.7, margin: "0 0 12px" }}>
-                  Un acompañamiento de 30 días donde construimos juntos/as tu sistema de productividad intencional. Empezamos con una sesión de diagnóstico de tu situación real. Te construyo un dashboard personalizado en Notion y un "coach virtual" que te guía cada mañana y cada noche. Nos vemos en 5 sesiones de planificación estratégica durante el mes, y recibirás recordatorios diarios por WhatsApp.
-                </p>
-                <p style={{ fontSize: 13, color: B.dark, fontWeight: 500, lineHeight: 1.6, margin: "0 0 14px" }}>
-                  Al día 30, tienes un sistema que funciona — y el hábito de usarlo.
-                </p>
-                <div style={{ padding: "14px 16px", background: B.lavender, borderRadius: 12 }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-                    <div>
-                      <span style={{ fontFamily: "'Jaro', sans-serif", fontSize: 24, color: B.purple }}>$450 <span style={{ fontSize: 12, fontFamily: "'Rubik', sans-serif", color: B.gray }}>USD</span></span>
-                    </div>
-                    <span style={{ fontSize: 12, color: B.purpleDark, fontWeight: 500 }}>30 días</span>
-                  </div>
-                  <div style={{ fontSize: 12, color: B.gray, lineHeight: 2 }}>
-                    <strong style={{ color: B.dark }}>Incluye:</strong><br/>
-                    ✓ Sesión de diagnóstico<br/>
-                    ✓ "Coach virtual" diario<br/>
-                    ✓ Dashboard personalizado de Notion<br/>
-                    ✓ 5 sesiones de planificación estratégica<br/>
-                    ✓ Recordatorios diarios por WhatsApp
-                  </div>
-                  
-                </div>
-              </div>
-
-              {/* WhatsApp CTA */}
-              <button onClick={() => {
-                const text = encodeURIComponent(buildReport());
-                window.open(`https://wa.me/50766741296?text=${text}`, "_blank");
-              }} style={{
-                width: "100%", padding: "15px", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                background: B.purple, color: "#fff",
-                border: "none", borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: "pointer", marginBottom: 10,
-              }}>
-                💬 Hablemos por WhatsApp
-              </button>
-
               {/* ═══ OFERTA FINAL — Abanico + Email capture ═══ */}
               <div style={{ marginBottom: 12, padding: "24px 20px", background: "#fff", borderRadius: 18, border: `1px solid #E8E2F0`, boxShadow: `0 2px 12px ${B.purple}10` }}>
                 {/* Hero */}
@@ -919,6 +854,71 @@ export default function LeadMagnetQuiz() {
                   </div>
                 )}
               </div>
+
+              {/* ═══ BRIDGE + TOMANDO EL CONTROL ═══ */}
+              {/* Success vision - highlighted */}
+              {successOpt && SUCCESS_MSGS[successOpt] && (
+                <div style={{ padding: "16px 20px", borderRadius: 14, marginBottom: 8, textAlign: "center", background: `${B.purple}10`, border: `1px solid ${B.purple}22` }}>
+                  <p style={{ fontSize: 16, color: B.purple, fontWeight: 400, lineHeight: 1.5, margin: 0, fontFamily: "'Jaro', sans-serif" }}>
+                    {SUCCESS_MSGS[successOpt]}
+                  </p>
+                </div>
+              )}
+
+              {/* Emotional bridge */}
+              <div style={{ padding: "14px 4px", marginBottom: 4 }}>
+                <p style={{ fontSize: 14, color: B.text, lineHeight: 1.7, margin: "0 0 14px" }}>
+                  Es posible. Pero seamos honestos/as: las 3 acciones de arriba funcionan <em>si las haces</em>. Pero mantener un sistema nuevo solo/a, sin acompañamiento — ahí es donde la mayoría se queda a mitad de camino.
+                </p>
+                <p style={{ fontSize: 16, color: B.dark, fontWeight: 600, lineHeight: 1.5, margin: "0 0 14px", textAlign: "center" }}>
+                  ¿Y si no tuvieras que hacerlo solo/a?
+                </p>
+                <p style={{ fontSize: 14, color: B.text, lineHeight: 1.7, margin: 0, textAlign: "center" }}>
+                  Por eso creé <span style={{ fontFamily: "'Jaro', sans-serif", fontSize: 18, color: B.dark }}>Tomando el Control</span>.
+                </p>
+              </div>
+
+              {/* Program card */}
+              <div style={{ ...S.card, borderLeft: `3px solid ${B.purple}` }}>
+                <div style={{ fontFamily: "'Jaro', sans-serif", fontSize: 20, color: B.dark, marginBottom: 8 }}>
+                  Tomando el Control
+                </div>
+                <p style={{ fontSize: 13, color: B.text, lineHeight: 1.7, margin: "0 0 12px" }}>
+                  Un acompañamiento de 30 días donde construimos juntos/as tu sistema de productividad intencional. Empezamos con una sesión de diagnóstico de tu situación real. Te construyo un dashboard personalizado en Notion y un "coach virtual" que te guía cada mañana y cada noche. Nos vemos en 5 sesiones de planificación estratégica durante el mes, y recibirás recordatorios diarios por WhatsApp.
+                </p>
+                <p style={{ fontSize: 13, color: B.dark, fontWeight: 500, lineHeight: 1.6, margin: "0 0 14px" }}>
+                  Al día 30, tienes un sistema que funciona — y el hábito de usarlo.
+                </p>
+                <div style={{ padding: "14px 16px", background: B.lavender, borderRadius: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                    <div>
+                      <span style={{ fontFamily: "'Jaro', sans-serif", fontSize: 24, color: B.purple }}>$450 <span style={{ fontSize: 12, fontFamily: "'Rubik', sans-serif", color: B.gray }}>USD</span></span>
+                    </div>
+                    <span style={{ fontSize: 12, color: B.purpleDark, fontWeight: 500 }}>30 días</span>
+                  </div>
+                  <div style={{ fontSize: 12, color: B.gray, lineHeight: 2 }}>
+                    <strong style={{ color: B.dark }}>Incluye:</strong><br/>
+                    ✓ Sesión de diagnóstico<br/>
+                    ✓ "Coach virtual" diario<br/>
+                    ✓ Dashboard personalizado de Notion<br/>
+                    ✓ 5 sesiones de planificación estratégica<br/>
+                    ✓ Recordatorios diarios por WhatsApp
+                  </div>
+                  
+                </div>
+              </div>
+
+              {/* WhatsApp CTA */}
+              <button onClick={() => {
+                const text = encodeURIComponent(buildReport());
+                window.open(`https://wa.me/50766741296?text=${text}`, "_blank");
+              }} style={{
+                width: "100%", padding: "15px", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                background: B.purple, color: "#fff",
+                border: "none", borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: "pointer", marginBottom: 10,
+              }}>
+                💬 Hablemos por WhatsApp
+              </button>
 
               {/* Restart */}
               <button onClick={() => { setStep(0); setName(""); setRole(null); setAnswers([]); setGoal(""); setProfile(null); setEmail(""); setSheetsSent(false); setSliderHrs(null); setAgeRange(null); }}
