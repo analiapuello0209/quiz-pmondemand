@@ -845,21 +845,79 @@ export default function LeadMagnetQuiz() {
                 💬 Hablemos por WhatsApp
               </button>
 
-              {/* Discount ticket CTA */}
-              <div style={{ padding: 18, background: "#fff", borderRadius: 14, border: `1px dashed ${B.purple}44`, textAlign: "center", marginBottom: 12 }}>
-                <div style={{ fontSize: 13, color: B.dark, fontWeight: 600, marginBottom: 4 }}>
-                  🎟️ ¿Quieres un 10% de descuento exclusivo?
+              {/* ═══ OFERTA FINAL — Abanico + Email capture ═══ */}
+              <div style={{ marginBottom: 12, padding: "24px 20px", background: "#fff", borderRadius: 18, border: `1px solid #E8E2F0`, boxShadow: `0 2px 12px ${B.purple}10` }}>
+                {/* Hero */}
+                <div style={{ textAlign: "center", marginBottom: 8 }}>
+                  <h2 style={{ fontFamily: "'DM Serif Text', serif", fontSize: 26, lineHeight: 1.2, color: B.text, margin: 0, fontWeight: 400 }}>
+                    Tu reporte extendido<br/>
+                    <span style={{ fontStyle: "italic", color: B.purple }}>te está esperando</span>
+                  </h2>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 14, padding: "6px 14px", background: B.lavender, borderRadius: 999, fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: B.purpleDark }}>
+                    <span style={{ width: 6, height: 6, background: B.purple, borderRadius: "50%" }} />
+                    Gratis en tu email
+                  </div>
                 </div>
-                <p style={{ fontSize: 12, color: B.gray, margin: "0 0 12px", lineHeight: 1.4 }}>
-                  Déjame tu email y te genero tu ticket de descuento personal.
-                </p>
-                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="tu@email.com"
-                  onKeyDown={e => { if (e.key === "Enter" && isValidEmail(email)) submitEmail() }}
-                  style={{ ...S.input, fontSize: 14, fontFamily: "'Rubik', sans-serif", textAlign: "center", border: `2px solid ${B.purple}22` }} />
-                <button onClick={submitEmail} disabled={!isValidEmail(email)}
-                  style={{ ...S.btn(isValidEmail(email)), fontSize: 13 }}>
-                  Generar mi ticket de descuento →
-                </button>
+
+                {/* Abanico */}
+                <div style={{ position: "relative", width: "100%", height: 260, display: "flex", justifyContent: "center", alignItems: "center", marginBottom: 4 }}>
+                  <div style={{ position: "relative", width: 130, height: 170 }}>
+                    {[
+                      { tx: -140, ty: 36, rot: -22, z: 1 },
+                      { tx: -88, ty: 14, rot: -13, z: 2 },
+                      { tx: -32, ty: 2, rot: -4, z: 3 },
+                      { tx: 32, ty: 2, rot: 4, z: 3 },
+                      { tx: 88, ty: 14, rot: 13, z: 2 },
+                      { tx: 140, ty: 36, rot: 22, z: 1 },
+                    ].map((c, i) => (
+                      <div key={i} style={{
+                        position: "absolute", top: 0, left: 0, width: 130, height: 170,
+                        borderRadius: 6, overflow: "hidden",
+                        boxShadow: "0 1px 2px rgba(28, 24, 53, 0.08), 0 6px 16px rgba(28, 24, 53, 0.12), 0 16px 40px rgba(28, 24, 53, 0.08)",
+                        transform: `translate(${c.tx}px, ${c.ty}px) rotate(${c.rot}deg)`,
+                        zIndex: c.z,
+                        background: "#fff",
+                      }}>
+                        <img src={`/perfiles/perfil-${String(i + 1).padStart(2, '0')}.png`} alt="" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Qué hay dentro */}
+                <div style={{ background: "#FDFBFF", border: `1.5px solid ${B.purple}22`, borderRadius: 14, padding: "18px 20px", marginBottom: 18 }}>
+                  <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: B.purple, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ width: 20, height: 2, background: B.yellow }} />
+                    Qué hay dentro
+                  </div>
+                  {[
+                    <>Las <strong style={{ color: B.purple, fontWeight: 600 }}>4 trampas</strong> específicas donde siempre caes</>,
+                    <>Por qué los <strong style={{ color: B.purple, fontWeight: 600 }}>consejos genéricos</strong> de productividad no han funcionado</>,
+                    <>Las <strong style={{ color: B.purple, fontWeight: 600 }}>5 estrategias</strong> diseñadas para cómo funciona tu cerebro</>,
+                    <>Tu <strong style={{ color: B.purple, fontWeight: 600 }}>kit de herramientas</strong> listo para aplicar esta semana</>,
+                  ].map((content, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, marginTop: i === 0 ? 0 : 12 }}>
+                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: B.yellow, marginTop: 7, flexShrink: 0, boxShadow: `0 0 0 3px ${B.yellow}40` }} />
+                      <div style={{ fontSize: 14, lineHeight: 1.45, color: B.text }}>{content}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Form (si no hay email) o Botón (si email ya está set desde step 1) */}
+                {isValidEmail(email) ? (
+                  <button onClick={submitEmail} style={{ width: "100%", padding: "15px 22px", background: B.purple, color: "#fff", border: "none", borderRadius: 999, fontFamily: "'Rubik', sans-serif", fontSize: 14, fontWeight: 600, cursor: "pointer", boxShadow: `0 6px 20px ${B.purple}48` }}>
+                    Quiero mi reporte con 10% de descuento →
+                  </button>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="tu@email.com"
+                      onKeyDown={e => { if (e.key === "Enter" && isValidEmail(email)) submitEmail() }}
+                      style={{ width: "100%", padding: "14px 20px", border: `2px solid rgba(45, 41, 68, 0.1)`, borderRadius: 999, fontFamily: "'Rubik', sans-serif", fontSize: 15, color: B.text, background: "#fff", outline: "none", boxSizing: "border-box", textAlign: "center" }} />
+                    <button onClick={submitEmail} disabled={!isValidEmail(email)} style={{ width: "100%", padding: "15px 22px", background: isValidEmail(email) ? B.purple : "#E8E2F0", color: isValidEmail(email) ? "#fff" : "#B8B0CC", border: "none", borderRadius: 999, fontFamily: "'Rubik', sans-serif", fontSize: 14, fontWeight: 600, cursor: isValidEmail(email) ? "pointer" : "default", boxShadow: isValidEmail(email) ? `0 6px 20px ${B.purple}48` : "none" }}>
+                      Quiero mi reporte con 10% de descuento →
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Restart */}
