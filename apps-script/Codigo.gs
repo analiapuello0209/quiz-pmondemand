@@ -8,10 +8,11 @@
 //   7.  profile_primary     8.  profile_secondary   9.  monthly_cost
 //   10. hrs_lost_day        11. hourly_rate         12. email
 //   13. code                14. age_range           15. code_expires
-//   16. unsubscribe_token   17. email_e0_sent_at
+//   16. unsubscribe_token   17. email_e0_sent_at    18. email_e1_sent_at
+//   19. email_e2_sent_at    20. unsubscribed_at     21. wa_clicked_at
 //
-// Columnas para E1/E2/WhatsApp tracking (tasks #14-16) vendrán a la
-// derecha (18+) cuando se implementen.
+// Cols 20-21 las usarán los endpoints /pausar y /wa (tasks #15, #16) —
+// por ahora quedan vacías y dailyEmailJob las trata como "no suprimido".
 // ════════════════════════════════════════════════════════════════════════
 
 // --- Constantes ---
@@ -20,7 +21,19 @@ const BASE_URL       = "https://tupmondemand.com";
 const CALENDLY_URL   = "https://calendly.com/analia-tupmondemand/30min";
 const PDF_FOLDER_ID  = "1m3OQe9hv2baj5xBENzzD3romrG9exNqX";
 
-// Map del nombre del perfil (como viene del quiz) → archivo PDF en Drive
+// Días entre emails de la secuencia
+const DAYS_BETWEEN_E0_E1 = 3;
+const DAYS_BETWEEN_E1_E2 = 3;
+
+// Subjects (se les prefija "{firstName}, ")
+// AJUSTAR si quieres otro tono.
+const SUBJECTS = {
+  "e0": "tu resultado del quiz",
+  "e1": "una pregunta",
+  "e2": "lo último que te escribo",
+};
+
+// Map del nombre del perfil → archivo PDF en Drive (SOLO se adjunta en E0)
 const PROFILE_PDF_MAP = {
   "Apagafuegos":         "01_Reporte Apagafuegos.pdf",
   "Todoterreno":         "02_Reporte Todoterreno.pdf",
@@ -30,14 +43,32 @@ const PROFILE_PDF_MAP = {
   "Optimizador":         "06_Reporte Optimizador.pdf",
 };
 
-// Map del nombre del perfil → nombre del archivo HTML del template E0 en Apps Script
-const PROFILE_TEMPLATE_MAP = {
-  "Apagafuegos":         "email_e0_apagafuegos",
-  "Todoterreno":         "email_e0_todoterreno",
-  "Perfeccionista":      "email_e0_perfeccionista",
-  "Multitasker":         "email_e0_multitasker",
-  "Planificador Eterno": "email_e0_planificador",
-  "Optimizador":         "email_e0_optimizador",
+// Maps del nombre del perfil → nombre del archivo HTML en Apps Script (por stage)
+const PROFILE_TEMPLATES = {
+  "e0": {
+    "Apagafuegos":         "email_e0_apagafuegos",
+    "Todoterreno":         "email_e0_todoterreno",
+    "Perfeccionista":      "email_e0_perfeccionista",
+    "Multitasker":         "email_e0_multitasker",
+    "Planificador Eterno": "email_e0_planificador",
+    "Optimizador":         "email_e0_optimizador",
+  },
+  "e1": {
+    "Apagafuegos":         "email_e1_apagafuegos",
+    "Todoterreno":         "email_e1_todoterreno",
+    "Perfeccionista":      "email_e1_perfeccionista",
+    "Multitasker":         "email_e1_multitasker",
+    "Planificador Eterno": "email_e1_planificador",
+    "Optimizador":         "email_e1_optimizador",
+  },
+  "e2": {
+    "Apagafuegos":         "email_e2_apagafuegos",
+    "Todoterreno":         "email_e2_todoterreno",
+    "Perfeccionista":      "email_e2_perfeccionista",
+    "Multitasker":         "email_e2_multitasker",
+    "Planificador Eterno": "email_e2_planificador",
+    "Optimizador":         "email_e2_optimizador",
+  },
 };
 
 // ════════════════════════════════════════════════════════════════════════
@@ -76,7 +107,7 @@ function handleQuizResult(sheet, data) {
   ]);
 }
 
-// Maneja la captura de email + dispara envío de E0
+// Maneja la captura de email + dispara envío de E0 inmediato
 function handleEmailCapture(sheet, data) {
   var rows = sheet.getDataRange().getValues();
   for (var i = rows.length - 1; i >= 0; i--) {
@@ -112,16 +143,82 @@ function handleEmailCapture(sheet, data) {
 }
 
 // ════════════════════════════════════════════════════════════════════════
-// sendEmailE0 — Carga template, interpola variables, envía con PDF adjunto
+// dailyEmailJob — Corre 1 vez/día por trigger time-based a las 9am Panamá.
+// Recorre las filas, manda E1 a quien ya tiene E0 hace ≥3 días y E2 a
+// quien ya tiene E1 hace ≥3 días. Suprime si unsubscribed_at o
+// wa_clicked_at están seteados.
 // ════════════════════════════════════════════════════════════════════════
-function sendEmailE0(d) {
-  var templateName = PROFILE_TEMPLATE_MAP[d.profile];
-  if (!templateName) throw new Error("No template E0 para perfil: " + d.profile);
+function dailyEmailJob() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var rows = sheet.getDataRange().getValues();
+  var now = new Date();
+  var sent = { e1: 0, e2: 0, errors: 0 };
 
-  var pdfFileName = PROFILE_PDF_MAP[d.profile];
-  if (!pdfFileName) throw new Error("No PDF para perfil: " + d.profile);
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    if (row[1] !== "quiz_result") continue; // solo filas del quiz
 
-  // Cargar HTML raw del archivo template del proyecto Apps Script
+    var rowNum = i + 1;
+    var email = row[11];
+    var code = row[12];
+    if (!email || !code) continue; // sin email_capture todavía
+
+    // Supresión: unsubscribed o ya clickeó WA
+    if (row[19] || row[20]) continue;
+
+    var name        = row[2];
+    var profile     = row[6];
+    var codeExpires = row[14];
+    var token       = row[15];
+    var e0Sent      = row[16];
+    var e1Sent      = row[17];
+    var e2Sent      = row[18];
+
+    var payload = {
+      name: name, email: email, code: code,
+      code_expires: codeExpires, profile: profile,
+      unsubscribe_token: token,
+    };
+
+    // E1: ya hay E0, no hay E1, han pasado ≥3 días desde E0
+    if (e0Sent && !e1Sent && _daysBetween(e0Sent, now) >= DAYS_BETWEEN_E0_E1) {
+      try {
+        sendEmailE1(payload);
+        sheet.getRange(rowNum, 18).setValue(now.toISOString());
+        sent.e1++;
+      } catch (err) {
+        Logger.log("E1 fail row " + rowNum + ": " + err.message);
+        sent.errors++;
+      }
+    }
+    // E2: ya hay E1, no hay E2, han pasado ≥3 días desde E1
+    else if (e1Sent && !e2Sent && _daysBetween(e1Sent, now) >= DAYS_BETWEEN_E1_E2) {
+      try {
+        sendEmailE2(payload);
+        sheet.getRange(rowNum, 19).setValue(now.toISOString());
+        sent.e2++;
+      } catch (err) {
+        Logger.log("E2 fail row " + rowNum + ": " + err.message);
+        sent.errors++;
+      }
+    }
+  }
+
+  Logger.log("dailyEmailJob: E1=" + sent.e1 + " E2=" + sent.e2 + " errors=" + sent.errors);
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// SEND FUNCTIONS — wrappers + helper compartido
+// ════════════════════════════════════════════════════════════════════════
+function sendEmailE0(d) { _sendEmailByStage("e0", d); }
+function sendEmailE1(d) { _sendEmailByStage("e1", d); }
+function sendEmailE2(d) { _sendEmailByStage("e2", d); }
+
+function _sendEmailByStage(stage, d) {
+  var templateName = PROFILE_TEMPLATES[stage][d.profile];
+  if (!templateName) throw new Error("No template " + stage + " para perfil: " + d.profile);
+
+  // Cargar HTML raw
   var html = HtmlService.createTemplateFromFile(templateName).getRawContent();
 
   // Variables para interpolar
@@ -136,18 +233,22 @@ function sendEmailE0(d) {
     .replace(/\{\{calendly_url\}\}/g, CALENDLY_URL)
     .replace(/\{\{unsubscribe_url\}\}/g, unsubscribeUrl);
 
-  // PDF adjunto desde Drive
-  var folder = DriveApp.getFolderById(PDF_FOLDER_ID);
-  var files = folder.getFilesByName(pdfFileName);
-  if (!files.hasNext()) throw new Error("PDF no encontrado en Drive: " + pdfFileName);
-  var pdfBlob = files.next().getBlob();
+  // Adjuntar PDF SOLO en E0
+  var attachments = [];
+  if (stage === "e0") {
+    var pdfFileName = PROFILE_PDF_MAP[d.profile];
+    if (!pdfFileName) throw new Error("No PDF para perfil: " + d.profile);
+    var folder = DriveApp.getFolderById(PDF_FOLDER_ID);
+    var files = folder.getFilesByName(pdfFileName);
+    if (!files.hasNext()) throw new Error("PDF no encontrado en Drive: " + pdfFileName);
+    attachments.push(files.next().getBlob());
+  }
 
-  // Enviar (sale desde la cuenta dueña del script: analia@tupmondemand.com)
-  var subject = firstName + ", tu resultado del quiz";
+  var subject = firstName + ", " + SUBJECTS[stage];
   GmailApp.sendEmail(d.email, subject, "", {
     name: SENDER_NAME,
     htmlBody: html,
-    attachments: [pdfBlob],
+    attachments: attachments,
   });
 }
 
@@ -167,19 +268,29 @@ function formatSpanishDate(yyyymmdd) {
   return day + " de " + months[monthIdx];
 }
 
+// Días enteros entre dos fechas/strings (redondea hacia abajo)
+function _daysBetween(from, to) {
+  var d1 = (from instanceof Date) ? from : new Date(from);
+  var d2 = (to   instanceof Date) ? to   : new Date(to);
+  return Math.floor((d2 - d1) / (1000 * 60 * 60 * 24));
+}
+
 // ════════════════════════════════════════════════════════════════════════
-// TEST — Ejecútala manualmente desde el editor (botón ▶ "TEST") para
-// enviarte un E0 de prueba SIN tener que hacer un quiz real.
-// La primera vez Google te pedirá autorizar permisos de Gmail + Drive.
+// FUNCIONES TEST — Ejecutar manualmente desde el editor (▶ TEST_*) para
+// probar envíos sin necesidad de quiz real ni esperar 3 días.
 // ════════════════════════════════════════════════════════════════════════
-function TEST() {
-  sendEmailE0({
+function TEST()    { sendEmailE0(_testPayload()); Logger.log("Test E0 enviado"); }
+function TEST_E1() { sendEmailE1(_testPayload()); Logger.log("Test E1 enviado"); }
+function TEST_E2() { sendEmailE2(_testPayload()); Logger.log("Test E2 enviado"); }
+function TEST_DAILY() { dailyEmailJob(); }
+
+function _testPayload() {
+  return {
     name: "Test Analía",
-    email: "analia@tupmondemand.com",  // a ti misma
+    email: "analia@tupmondemand.com",
     code: "TC-TST-0000",
     code_expires: "2026-06-02",
     profile: "Apagafuegos",
     unsubscribe_token: "test-token-12345",
-  });
-  Logger.log("Test E0 enviado a analia@tupmondemand.com");
+  };
 }
