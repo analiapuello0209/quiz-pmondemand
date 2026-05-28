@@ -3787,6 +3787,61 @@ body::before {
 </section>
 
 
+<!-- ═══════════════════════════════════════════════════════════
+     ABANICO FINAL — 6 perfiles + CTA al quiz
+     ═══════════════════════════════════════════════════════════ -->
+<section class="abanico-section" id="abanico">
+  <style>
+    .abanico-section { padding: 80px 24px; background: linear-gradient(180deg, #FAF7FD 0%, #FFFFFF 100%); text-align: center; }
+    .abanico-section .abanico-container { max-width: 720px; margin: 0 auto; }
+    .abanico-eyebrow { display: inline-block; font-family: 'Rubik', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #815DFF; padding: 6px 14px; background: #EFE8F1; border-radius: 999px; margin-bottom: 20px; }
+    .abanico-title { font-family: 'DM Serif Text', serif; font-weight: 400; font-size: 36px; line-height: 1.2; color: #2D2944; margin: 0 0 16px; }
+    .abanico-title .accent { color: #815DFF; font-style: italic; }
+    .abanico-sub { font-family: 'Rubik', sans-serif; font-size: 16px; color: #686087; line-height: 1.6; margin: 0 auto 40px; max-width: 520px; }
+    .abanico-fan-wrapper { height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 40px; }
+    .abanico-fan { position: relative; width: 150px; height: 195px; }
+    .abanico-card { position: absolute; top: 0; left: 0; width: 150px; height: 195px; border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 2px 4px rgba(28,24,53,0.08), 0 8px 20px rgba(28,24,53,0.12), 0 20px 50px rgba(28,24,53,0.08); }
+    .abanico-card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .abanico-card-1 { transform: translate(-160px, 40px) rotate(-22deg); z-index: 1; }
+    .abanico-card-2 { transform: translate(-100px, 16px) rotate(-13deg); z-index: 2; }
+    .abanico-card-3 { transform: translate(-36px, 2px) rotate(-4deg); z-index: 3; }
+    .abanico-card-4 { transform: translate(36px, 2px) rotate(4deg); z-index: 3; }
+    .abanico-card-5 { transform: translate(100px, 16px) rotate(13deg); z-index: 2; }
+    .abanico-card-6 { transform: translate(160px, 40px) rotate(22deg); z-index: 1; }
+    .abanico-cta { display: inline-block; padding: 18px 36px; background: #815DFF; color: #FFFFFF !important; text-decoration: none; font-family: 'Rubik', sans-serif; font-size: 16px; font-weight: 600; border-radius: 999px; box-shadow: 0 8px 24px rgba(129, 93, 255, 0.32); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .abanico-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(129, 93, 255, 0.42); }
+    @media (max-width: 600px) {
+      .abanico-section { padding: 60px 20px; }
+      .abanico-title { font-size: 28px; }
+      .abanico-fan-wrapper { height: 280px; }
+      .abanico-fan, .abanico-card { width: 120px; height: 156px; }
+      .abanico-card-1 { transform: translate(-130px, 35px) rotate(-22deg); }
+      .abanico-card-2 { transform: translate(-82px, 14px) rotate(-13deg); }
+      .abanico-card-3 { transform: translate(-30px, 2px) rotate(-4deg); }
+      .abanico-card-4 { transform: translate(30px, 2px) rotate(4deg); }
+      .abanico-card-5 { transform: translate(82px, 14px) rotate(13deg); }
+      .abanico-card-6 { transform: translate(130px, 35px) rotate(22deg); }
+    }
+  </style>
+  <div class="abanico-container">
+    <span class="abanico-eyebrow">¿Cuál es el tuyo?</span>
+    <h2 class="abanico-title">6 perfiles posibles,<br><span class="accent">tu reporte te espera</span></h2>
+    <p class="abanico-sub">Haz el test de 3 minutos y descubre cuál de los 6 patrones de improductividad te describe. Recibes tu reporte extendido gratis al terminar.</p>
+    <div class="abanico-fan-wrapper">
+      <div class="abanico-fan">
+        <div class="abanico-card abanico-card-1"><img src="/perfiles/perfil-01.png" alt="Reporte Planificador"></div>
+        <div class="abanico-card abanico-card-2"><img src="/perfiles/perfil-02.png" alt="Reporte Apagafuegos"></div>
+        <div class="abanico-card abanico-card-3"><img src="/perfiles/perfil-03.png" alt="Reporte Todoterreno"></div>
+        <div class="abanico-card abanico-card-4"><img src="/perfiles/perfil-04.png" alt="Reporte Perfeccionista"></div>
+        <div class="abanico-card abanico-card-5"><img src="/perfiles/perfil-05.png" alt="Reporte Multitasker"></div>
+        <div class="abanico-card abanico-card-6"><img src="/perfiles/perfil-06.png" alt="Reporte Optimizador"></div>
+      </div>
+    </div>
+    <a href="/quiz" class="abanico-cta">Hacer el test →</a>
+  </div>
+</section>
+
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-logo">

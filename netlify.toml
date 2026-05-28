@@ -23,6 +23,13 @@
   to = "/wa.html"
   status = 200
 
+# Redirect 301 permanente del antiguo /teaser al quiz. Por si alguien
+# tiene el link guardado de cuando era la URL del lead magnet aislado.
+[[redirects]]
+  from = "/teaser"
+  to = "/quiz"
+  status = 301
+
 [[redirects]]
   from = "/*"
   to = "/landing.html"
