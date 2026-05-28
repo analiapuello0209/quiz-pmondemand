@@ -404,6 +404,7 @@ export default function LeadMagnetQuiz() {
       if (!sheetsSent) {
         sendToSheets({
           timestamp: new Date().toISOString(),
+          source: "quiz",
           name,
           email,
           age_range: ageRange,
@@ -435,6 +436,7 @@ export default function LeadMagnetQuiz() {
     sendToSheets({
       timestamp: new Date().toISOString(),
       type: "email_capture",
+      source: "quiz",
       name,
       email,
       code,
