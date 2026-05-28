@@ -30,7 +30,7 @@ const DAYS_BETWEEN_E1_E2 = 3;
 const SUBJECTS = {
   "e0": "tu resultado del quiz",
   "e1": "una pregunta",
-  "e2": "lo último que te escribo",
+  "e2": "antes de que cierre tu código",
 };
 
 // Map del nombre del perfil → archivo PDF en Drive (SOLO se adjunta en E0)
