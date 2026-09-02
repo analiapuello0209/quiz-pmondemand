@@ -30,6 +30,13 @@
   to = "/quiz"
   status = 301
 
+# /workshop: landing del workshop presencial de IA (17 de septiembre, Numo).
+# Va antes del catch-all /* para que no la trague el rewrite a landing.html.
+[[redirects]]
+  from = "/workshop"
+  to = "/workshop.html"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/landing.html"
